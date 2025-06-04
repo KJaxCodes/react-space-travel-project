@@ -1,0 +1,116 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;600;700&display=swap');
+
+:root {
+    --primary: rgb(61, 211, 237);
+    --secondary: rgba(0, 0, 0, 0.911);
+}
+
+body {
+    margin: 10px;
+    padding: 20px;
+    font-family: 'Source Code Pro', monospace;
+    background: var(--secondary);
+}
+
+* {
+    color: #fff;
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+
+}
+
+h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    margin-top: 3rem;
+}
+
+h3 {
+    font-size: 1.5rem;
+    margin: 2rem;
+}
+
+p {
+    margin: 20px;
+}
+
+button {
+    border: 0;
+    padding: 8px;
+    border-radius: 4px;
+    color: white;
+    background: var(--primary);
+    cursor: pointer;
+}
+
+ul {
+    list-style-type: disc;
+    padding-left: 2rem;
+    /* creates space for bullets */
+    margin: 1rem;
+}
+
+li {
+    margin: 0.5rem;
+}
+
+/* navbar */
+
+header {
+    text-align: center;
+    padding: 1rem;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    border-bottom: 3px solid var(--primary);
+    display: inline-block;
+}
+
+header nav {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+}
+
+header nav a {
+    text-decoration: none;
+    padding: 6px;
+    border-radius: 4px;
+    color: var(--primary);
+}
+
+header nav a.active {
+    background: var(--primary);
+    color: black;
+}
+
+.Input {
+    margin: .5rem;
+    padding: .5rem;
+    border: 2px solid #ffffff;
+    color: black;
+}
+
+.error-message {
+    color: red;
+    font-size: 0.9rem;
+    margin-top: 1px;
+}
+
+.input-error {
+    border: 2px solid red !important;
+}
+
+input[type="text"],
+select,
+textarea {
+    color: black;
+    /* Sets input text color */
+    background-color: white;
+    /* Ensures contrast with text */
+}
