@@ -14,7 +14,8 @@ function SpacecraftsPage() {
     const {
         spacecrafts,
         decommissionSpacecraftById,
-        loadInitialData
+        loadInitialData,
+        planets,
     } = useSpaceTravel();
 
     //local state
@@ -25,7 +26,12 @@ function SpacecraftsPage() {
         loadInitialData();
     }, []);
 
-    if (!spacecrafts) return <p>Loading spacecrafts...&&&&</p>;
+    const getPlanetNameById = (planetId) => {
+        const planet = planets.find((p) => p.id === planetId);
+        return planet ? planet.name : "Unassigned";
+    };
+
+    if (!spacecrafts) return <p>Loading spacecrafts....</p>;
 
     return (
         <div>
@@ -39,7 +45,9 @@ function SpacecraftsPage() {
                         <Link to={`/spacecrafts/${craft.id}`} title="View details">
                             🔍
                         </Link> {" "}
-                        {craft.name} - Capacity: {craft.capacity} Currently on Planet ID: {craft.currentLocation}
+                        {craft.name}
+                        <p>Capacity: {craft.capacity}</p>
+                        <p>Currently on Planet: {getPlanetNameById(craft.currentLocation)}</p>
                         <button
                             onClick={() => decommissionSpacecraftById(craft.id)}
                             style={{ marginLeft: "1rem" }}
