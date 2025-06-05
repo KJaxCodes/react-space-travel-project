@@ -30,6 +30,24 @@ export const SpaceTravelProvider = ({ children }) => {
         }
     };
 
+    //Assign or reassign spacecraft to planet
+    const assignSpacecraftToPlanet = async ({ spacecraftId, targetPlanetId }) => {
+        try {
+            const response = await SpaceTravelApi.sendSpacecraftToPlanet({
+                spacecraftId, targetPlanetId
+            });
+            if (!response.isError) {
+                setSpacecrafts((prev) =>
+                    prev.map((craft) =>
+                        craft.id === spacecraftId ? { ...craft, currentLocation: targetPlanetId } : craft
+                    )
+                );
+            }
+        } catch (err) {
+            console.error("Failed to assign spacecraft", err.message);
+        }
+    }
+
     // Load initial spacecrafts and planets
 
     const loadInitialData = async () => {
@@ -55,6 +73,7 @@ export const SpaceTravelProvider = ({ children }) => {
                 setPlanets,
                 addSpacecraft,
                 decommissionSpacecraftById,
+                assignSpacecraftToPlanet,
                 loadInitialData,
             }}
         >
