@@ -1,34 +1,22 @@
 import { useEffect, useState } from "react";
+import { useSpaceTravel } from "../context/SpaceTravelContext";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 //useForm from react hook form library for error validation
 import SpaceTravelApi from "../services/SpaceTravelApi";
 
 function Construction() {
+    const { addSpacecraft } = useSpaceTravel(); //connect to global state
 
-    const { register, handleSubmit, reset, formState: { errors } } = useForm();
+    const { register, handleSubmit, reset, setError, formState: { errors } } = useForm();
 
-    // const [planets, setPlanets] = useState([]); do i need this here?
-    const [error, setError] = useState(null);
     const navigate = useNavigate()
-
-    //load planets
-    // useEffect(() => {
-    //     async function fetchPlanets() {
-    //         const response = await SpaceTravelApi.getPlanets();
-    //         if (!response.isError) {
-    //             setPlanets(response.data);
-    //         } else {
-    //             setError("Failed to load planets.");
-    //         }
-    //     }
-    //     fetchPlanets();
-    // }, []);
 
     //handle submit
     async function onSubmit(data) {
         const response = await SpaceTravelApi.buildSpacecraft(data);
         if (!response.isError) {
+            addSpacecraft(response.data); //Update global state
             reset();
             navigate("/spacecrafts"); //go back to the spacecrafts page
         } else {
@@ -41,7 +29,6 @@ function Construction() {
         <div>
             <h2>🛠️Build a New Spacecraft</h2>
 
-            {error && <p style={{ color: "red" }}>{error}</p>}
 
             <form onSubmit={handleSubmit(onSubmit)}>
 
@@ -77,9 +64,12 @@ function Construction() {
                     <textarea
                         {...register("description", { required: "Description is required", })}
                         placeholder="description"
-                        className={`Input ${errors.capacity ? "input-error" : ""}`}
+                        className={`Input ${errors.description ? "input-error" : ""}`}
                         id="description"
                     />
+                    {errors.description && (
+                        <p className="error-message">{errors.description.message}</p>
+                    )}
                 </div>
                 <div className="Input">
                     <label>Picture URL: </label>

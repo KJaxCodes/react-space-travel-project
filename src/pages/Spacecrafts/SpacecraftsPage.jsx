@@ -5,34 +5,27 @@
 
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useSpaceTravel } from "../../context/SpaceTravelContext";
 
 import SpaceTravelApi from "../../services/SpaceTravelApi"; // to get data from mock API
 
 function SpacecraftsPage() {
 
-    const [spacecrafts, setSpacecrafts] = useState();
+    const {
+        spacecrafts,
+        decommissionSpacecraftById,
+        loadInitialData
+    } = useSpaceTravel();
 
     //local state
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        async function loadSpacecrafts() {
-            try {
-                const response = await SpaceTravelApi.getSpacecrafts();
-                if (response.isError) {
-                    throw new Error("Failed to load spacecrafts.");
-                }
-                setSpacecrafts(response.data);
-            } catch (err) {
-                setError(err.message);
-            } finally {
-                setIsLoading(false);
-            }
-        }
+        loadInitialData();
+    }, []);
 
-        loadSpacecrafts();
-    }, [setSpacecrafts]);
+    if (!spacecrafts) return <p>Loading spacecrafts...&&&&</p>;
 
     return (
         <div>
@@ -40,27 +33,22 @@ function SpacecraftsPage() {
             <p>
                 <Link to="/spacecrafts/build">🛠️ Build New Spacecraft</Link>
             </p>
-            {isLoading && <p>Loading spacecrafts...⌛</p>}
-            {error && <p style={{ color: "red" }}>Error: {error}</p>}
-            {!isLoading && !error && (
-
-                <ul>
-                    {spacecrafts.map((craft) => (
-                        <li key={craft.id}>
-                            <Link to={`/spacecrafts/${craft.id}`} title="View details">
-                                🔍
-                            </Link> {" "}
-                            {craft.name}  Capacity: {craft.capacity} Currently on Planet ID: {craft.currentLocation}
-                            <button
-                                onClick={() => decommissionSpacecraftById(craft.id)}
-                                style={{ marginLeft: "1rem" }}
-                            >
-                                Decommission Spacecraft
-                            </button>
-                        </li>
-                    ))}
-                </ul>
-            )}
+            <ul>
+                {spacecrafts.map((craft) => (
+                    <li key={craft.id}>
+                        <Link to={`/spacecrafts/${craft.id}`} title="View details">
+                            🔍
+                        </Link> {" "}
+                        {craft.name} - Capacity: {craft.capacity} Currently on Planet ID: {craft.currentLocation}
+                        <button
+                            onClick={() => decommissionSpacecraftById(craft.id)}
+                            style={{ marginLeft: "1rem" }}
+                        >
+                            Decommission Spacecraft
+                        </button>
+                    </li>
+                ))}
+            </ul>
         </div>
     );
 }
