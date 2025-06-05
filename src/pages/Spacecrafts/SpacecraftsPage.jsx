@@ -1,7 +1,13 @@
 //Show all spacecraft with ability to click for more info 
+//Display spacecraft name, capacity, current planet location 
 //Option to construct a new spacecraft
-//Option to delete/decommission existing spacecraft - should I have my delete button here?
+//Option to delete/decommission existing spacecraft - should I have my delete button here? -refresh page? set to global state?
 //Option to transfer spacecraft to a planet
+//have a dropdown which would render all planets
+//choose the planet to assign to craft to
+//set spacecraft to the selected planet
+//have a button called assign
+//assigns it by target planet id and spacecraft id
 
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
@@ -54,15 +60,18 @@ function SpacecraftsPage() {
                         {craft.name}
                         <p>Capacity: {craft.capacity}</p>
                         <p>Currently on Planet: {getPlanetNameById(craft.currentLocation)}</p>
-                        <button
-                            onClick={() => decommissionSpacecraftById(craft.id)}
-                            style={{ marginLeft: "1rem" }}
-                        >
-                            ♻️ Decommission Spacecraft
-                        </button>
+                        <p>
+                            <label>Decommission {craft.name}:</label>
+                            <button
+                                onClick={() => decommissionSpacecraftById(craft.id)}
+                                style={{ marginLeft: "1rem" }}
+                            >
+                                Decommission
+                            </button>
+                        </p>
 
-                        <div>
-                            <label> 💫 Reassign Spacecraft Location:</label>{" "}
+                        <p>
+                            <label> Reassign {craft.name}:</label>{" "}
                             <select
                                 value={selectedPlanetIds[craft.id]}
                                 onChange={(e) => handlePlanetSelect(craft.id, e.target.value)}
@@ -84,7 +93,7 @@ function SpacecraftsPage() {
                             >
                                 Assign
                             </button>
-                        </div>
+                        </p>
 
                     </li>
                 ))}

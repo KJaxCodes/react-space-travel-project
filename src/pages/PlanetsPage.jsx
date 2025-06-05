@@ -16,16 +16,8 @@ function PlanetsPage() {
   const getCraftsForPlanet = (planetId) =>
     spacecrafts.filter((craft) => craft.currentLocation === planetId);
 
-
-  //TODO
-  //fetch all current spacecraft available
-  //set them to local state
-  //then have a dropdown component which would render an N amount of spacecraft to select
-  //upon selection: "Example: Brutus", the selection then filteres the fetched spacecraft by name
-  //set the selected spacecraft to current -
-  //have a button called assign
-  //dispatches it by planet id and spacecraft id
-
+//To Do
+//set Assigned Spacecraft to "none assigned" if none assigned
 
   return (
     <div>
