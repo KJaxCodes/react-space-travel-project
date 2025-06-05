@@ -9,7 +9,7 @@ export const SpaceTravelProvider = ({ children }) => {
     const [spacecrafts, setSpacecrafts] = useState([]);
     const [planets, setPlanets] = useState([]);
     const [spacecraftId, setSpacecraftId] = useState([]);
-    const [currentCraft, setCurrentCraft] = useState({});
+
 
     //Actions
     const addSpacecraft = (newCraft) => {
@@ -31,15 +31,10 @@ export const SpaceTravelProvider = ({ children }) => {
     return (
         <SpaceTravelContext.Provider
             value={{
-                spacecrafts,
                 setSpacecrafts,
-                planets,
                 setPlanets,
                 addSpacecraft,
                 decommissionSpacecraftById,
-                spacecraftId,
-                currentCraft,
-                setCurrentCraft,
             }}
         >
             {children}
