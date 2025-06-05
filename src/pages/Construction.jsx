@@ -8,22 +8,22 @@ function Construction() {
 
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
-    const [planets, setPlanets] = useState([]);
+    // const [planets, setPlanets] = useState([]); do i need this here?
     const [error, setError] = useState(null);
     const navigate = useNavigate()
 
     //load planets
-    useEffect(() => {
-        async function fetchPlanets() {
-            const response = await SpaceTravelApi.getPlanets();
-            if (!response.isError) {
-                setPlanets(response.data);
-            } else {
-                setError("Failed to load planets.");
-            }
-        }
-        fetchPlanets();
-    }, []);
+    // useEffect(() => {
+    //     async function fetchPlanets() {
+    //         const response = await SpaceTravelApi.getPlanets();
+    //         if (!response.isError) {
+    //             setPlanets(response.data);
+    //         } else {
+    //             setError("Failed to load planets.");
+    //         }
+    //     }
+    //     fetchPlanets();
+    // }, []);
 
     //handle submit
     async function onSubmit(data) {

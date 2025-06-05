@@ -2,43 +2,18 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useSpaceTravel } from "../context/SpaceTravelContext";
 import SpaceTravelApi from "../services/SpaceTravelApi"; // to get data from mock API
-import SpacecraftSelector from "../components/SpacecraftSelector";
 
 function PlanetsPage() {
-  const {
-    planets,
-    setPlanets,
-    spacecrafts,
-    setSpacecrafts,
-    decommissionSpacecraftById,
-    spacecraftId,
-    currentCraft,
-    setCurrentCraft,
 
-  } = useSpaceTravel();
+  const [planets, setPlanets] = useState();
+  const [spacecrafts, setSpacecrafts] = useState();
 
-
-
+  //local state
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
   //event listeners and dispatchers
 
-  const handleSetSelectedCraft = (craft) => {
-    setCurrentCraft(craft);
-  };
-
-  const handleAssignCraftToPlanet = async (planetId) => {
-
-    const craftId = currentCraft.id;
-    try {
-      const response = await SpaceTravelApi.sendSpacecraftToPlanet({ spacecraftId: craftId, targetPlanetId: planetId })
-      console.log(response.data);
-    } catch (e) {
-      console.log(e);
-    }
-    console.log(currentCraft);
-  };
 
 
   useEffect(() => {
@@ -75,12 +50,12 @@ function PlanetsPage() {
 
   }, []); // Empty dependency array so it runs only once after initial render
 
-  useEffect(() => {
-    if (planets.length > 0 && spacecrafts.length > 0) {
-      console.log(planets);
-      console.log(spacecrafts);
-    }
-  }, [planets, spacecrafts]);
+  // useEffect(() => {
+  //   if (planets.length > 0 && spacecrafts.length > 0) {
+  //     console.log(planets);
+  //     console.log(spacecrafts);
+  //   }
+  // }, []);
 
 
   //TODO
@@ -107,8 +82,8 @@ function PlanetsPage() {
               <img src={planet.pictureUrl} alt={planet.name} style={{ width: "100px" }} />
               <p>Population: {planet.currentPopulation} </p>
               <p>Assigned Spacecraft:</p>
-              <SpacecraftSelector spacecrafts={spacecrafts} currentCraft={currentCraft} handleSetSelectedCraft={handleSetSelectedCraft} />
-              <button onClick={() => handleAssignCraftToPlanet(planet.id)}>Assign</button>
+              {/* <SpacecraftSelector spacecrafts={spacecrafts} currentCraft={currentCraft} handleSetSelectedCraft={handleSetSelectedCraft} />
+              <button onClick={() => handleAssignCraftToPlanet(planet.id)}>Assign</button> */}
 
             </li>
           ))}

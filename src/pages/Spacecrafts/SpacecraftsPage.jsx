@@ -1,19 +1,18 @@
 //Show all spacecraft with ability to click for more info 
 //Option to construct a new spacecraft
 //Option to delete/decommission existing spacecraft - should I have my delete button here?
+//Option to transfer spacecraft to a planet
 
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { useSpaceTravel } from "../../context/SpaceTravelContext";
+
 import SpaceTravelApi from "../../services/SpaceTravelApi"; // to get data from mock API
 
 function SpacecraftsPage() {
-    const {
-        spacecrafts,
-        setSpacecrafts,
-        decommissionSpacecraftById
-    } = useSpaceTravel();
 
+    const [spacecrafts, setSpacecrafts] = useState();
+
+    //local state
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
 
