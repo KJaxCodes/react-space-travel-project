@@ -59,7 +59,7 @@ function SpacecraftsPage() {
                         </Link> {" "}
                         {craft.name}
                         <p>Capacity: {craft.capacity}</p>
-                        <p>Currently on Planet: {getPlanetNameById(craft.currentLocation)}</p>
+                        <p>Currently on Planet: {getPlanetNameById(parseInt(craft.currentLocation))}</p>
                         <p>
                             <label>Decommission {craft.name}:</label>
                             <button

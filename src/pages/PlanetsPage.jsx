@@ -14,10 +14,10 @@ function PlanetsPage() {
   }, []); // Empty dependency array so it runs only once after initial render
 
   const getCraftsForPlanet = (planetId) =>
-    spacecrafts.filter((craft) => craft.currentLocation === planetId);
+    spacecrafts.filter((craft) => parseInt(craft.currentLocation) === planetId);
 
-//To Do
-//set Assigned Spacecraft to "none assigned" if none assigned
+  //To Do
+  //set Assigned Spacecraft to "none assigned" if none assigned
 
   return (
     <div>
