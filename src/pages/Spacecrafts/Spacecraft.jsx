@@ -1,5 +1,8 @@
 //display details about a specific spacecraft
 
+//TO DO
+//update to display planet name not ID!!!!, bring in global context
+
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import SpaceTravelApi from "../../services/SpaceTravelApi";

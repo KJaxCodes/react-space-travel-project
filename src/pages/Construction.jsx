@@ -16,7 +16,8 @@ function Construction() {
     async function onSubmit(data) {
         const response = await SpaceTravelApi.buildSpacecraft(data);
         if (!response.isError) {
-            addSpacecraft(response.data); //Update global state
+            // addSpacecraft(response.data); //Update global state
+            console.log("all is good, navigate back to /spacecrafts");
             reset();
             navigate("/spacecrafts"); //go back to the spacecrafts page
         } else {

@@ -13,9 +13,10 @@ export const SpaceTravelProvider = ({ children }) => {
     //Actions
 
     //Construct new spacecraft
-    const addSpacecraft = (newCraft) => {
-        setSpacecrafts((prev) => [...prev, newCraft]);
-    };
+    // const addSpacecraft = (newCraft) => {
+    //     console.log("newcraft", newCraft);
+    //     setSpacecrafts((prev) => [...prev, newCraft]);
+    // };
 
     //Decommission spacecraft by ID
     const decommissionSpacecraftById = async (id) => {
@@ -52,13 +53,26 @@ export const SpaceTravelProvider = ({ children }) => {
 
     const loadInitialData = async () => {
         try {
-            const [spacecraftRes, planetsRes] = await Promise.all([
-                SpaceTravelApi.getSpacecrafts(),
-                SpaceTravelApi.getPlanets()
-            ]);
+            // planetsRes] = await Promise.all([
+            //     SpaceTravelApi.getSpacecrafts(),
+            //     SpaceTravelApi.getPlanets()
+            // ]);
 
-            if (!spacecraftRes.isError) setSpacecrafts(spacecraftRes.data);
-            if (!planetsRes.isError) setPlanets(planetsRes.data);
+            const spacecraftRes = await SpaceTravelApi.getSpacecrafts();
+            const planetRes = await SpaceTravelApi.getPlanets();
+
+            if (spacecraftRes.isError) {
+                console.log("loadInitialData Error: Spacecraft");
+                console.debug(spacecraftRes);
+            }
+            if (planetRes.isError) {
+                console.log("loadInitialData Error: Planet");
+                console.debug(spacecraftRes);
+            }
+
+            setSpacecrafts(spacecraftRes.data);
+            setPlanets(planetRes.data);
+
         } catch (err) {
             console.error("Failed to load initial data", err.message);
         }
@@ -71,7 +85,7 @@ export const SpaceTravelProvider = ({ children }) => {
                 setSpacecrafts,
                 planets,
                 setPlanets,
-                addSpacecraft,
+                // addSpacecraft,
                 decommissionSpacecraftById,
                 assignSpacecraftToPlanet,
                 loadInitialData,
