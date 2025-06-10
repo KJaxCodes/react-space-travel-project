@@ -8,6 +8,7 @@ export const useSpaceTravel = () => useContext(SpaceTravelContext);
 export const SpaceTravelProvider = ({ children }) => {
     const [spacecrafts, setSpacecrafts] = useState([]);
     const [planets, setPlanets] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
 
 
     //Actions
@@ -19,17 +20,17 @@ export const SpaceTravelProvider = ({ children }) => {
     // };
 
     //Decommission spacecraft by ID
-    const decommissionSpacecraftById = async (id) => {
-        try {
-            const response = await SpaceTravelApi.destroySpacecraftById(id);
-            if (response.isError) {
-                throw new Error("Failed to decommission.");
-            }
-            setSpacecrafts((prev) => prev.filter((craft) => craft.id !== id));
-        } catch (err) {
-            console.error("Decommission failure", err.message);
-        }
-    };
+    // const decommissionSpacecraftById = async (id) => {
+    //     try {
+    //         const response = await SpaceTravelApi.destroySpacecraftById(id);
+    //         if (response.isError) {
+    //             throw new Error("Failed to decommission.");
+    //         }
+    //         setSpacecrafts((prev) => prev.filter((craft) => craft.id !== id));
+    //     } catch (err) {
+    //         console.error("Decommission failure", err.message);
+    //     }
+    // };
 
     //Assign or reassign spacecraft to planet
     const assignSpacecraftToPlanet = async ({ spacecraftId, targetPlanetId }) => {
@@ -58,6 +59,8 @@ export const SpaceTravelProvider = ({ children }) => {
             //     SpaceTravelApi.getPlanets()
             // ]);
 
+            setIsLoading(true); //show loader
+
             const spacecraftRes = await SpaceTravelApi.getSpacecrafts();
             const planetRes = await SpaceTravelApi.getPlanets();
 
@@ -72,6 +75,7 @@ export const SpaceTravelProvider = ({ children }) => {
 
             setSpacecrafts(spacecraftRes.data);
             setPlanets(planetRes.data);
+            setIsLoading(false); //hide loader
 
         } catch (err) {
             console.error("Failed to load initial data", err.message);
@@ -86,9 +90,11 @@ export const SpaceTravelProvider = ({ children }) => {
                 planets,
                 setPlanets,
                 // addSpacecraft,
-                decommissionSpacecraftById,
+                // decommissionSpacecraftById,
                 assignSpacecraftToPlanet,
                 loadInitialData,
+                isLoading,
+                setIsLoading,
             }}
         >
             {children}

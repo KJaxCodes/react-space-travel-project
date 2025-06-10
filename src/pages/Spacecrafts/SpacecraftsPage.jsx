@@ -12,6 +12,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useSpaceTravel } from "../../context/SpaceTravelContext";
+import Loader from "../../components/Loader";
 
 import SpaceTravelApi from "../../services/SpaceTravelApi"; // to get data from mock API - do I need this after making the loadInitialData action in SpaceTravelContext?
 
@@ -19,20 +20,19 @@ function SpacecraftsPage() {
 
     const {
         spacecrafts,
-        decommissionSpacecraftById,
+        // decommissionSpacecraftById,
         assignSpacecraftToPlanet,
         loadInitialData,
         planets,
+        isLoading,
     } = useSpaceTravel();
 
     //local state
-    const [isLoading, setIsLoading] = useState(true);
-    const [error, setError] = useState(null);
     const [selectedPlanetIds, setSelectedPlanetIds] = useState({});
 
-    useEffect(() => {
-        loadInitialData().finally(() => setIsLoading(false)); //update local loading state
-    }, []);
+    // useEffect(() => {
+    //     loadInitialData().finally(() => setIsLoading(false)); //update local loading state
+    // }, []);
 
     const handlePlanetSelect = (craftId, planetId) => {
         setSelectedPlanetIds((prev) => ({ ...prev, [craftId]: planetId, }));
@@ -43,7 +43,6 @@ function SpacecraftsPage() {
         return planet ? planet.name : "Unassigned";
     };
 
-    if (!spacecrafts) return <p>Loading spacecrafts....</p>;
 
     return (
         <div>
@@ -63,7 +62,12 @@ function SpacecraftsPage() {
                         <p>
                             <label>Decommission {craft.name}:</label>
                             <button
-                                onClick={() => decommissionSpacecraftById(craft.id)}
+                                // onClick={() => destroySpacecraftById(craft.id)}
+
+                                onClick={async () => {
+                                    await SpaceTravelApi.destroySpacecraftById({ id: craft.id });
+                                    await loadInitialData();
+                                }}
                                 style={{ marginLeft: "1rem" }}
                             >
                                 Decommission
