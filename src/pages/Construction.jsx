@@ -1,13 +1,9 @@
-import { useEffect, useState } from "react";
-import { useSpaceTravel } from "../context/SpaceTravelContext";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 //useForm from react hook form library for error validation
 import SpaceTravelApi from "../services/SpaceTravelApi";
 
 function Construction() {
-    const { addSpacecraft } = useSpaceTravel(); //connect to global state
-
     const { register, handleSubmit, reset, setError, formState: { errors } } = useForm();
 
     const navigate = useNavigate()
@@ -16,7 +12,6 @@ function Construction() {
     async function onSubmit(data) {
         const response = await SpaceTravelApi.buildSpacecraft(data);
         if (!response.isError) {
-            // addSpacecraft(response.data); //Update global state
             reset();
             navigate("/spacecrafts"); //go back to the spacecrafts page
         } else {

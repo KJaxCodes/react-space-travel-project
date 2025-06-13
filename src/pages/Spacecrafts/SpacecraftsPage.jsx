@@ -12,6 +12,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useSpaceTravel } from "../../context/SpaceTravelContext";
+import Loader from "../../components/Loader";
 
 function SpacecraftsPage() {
 
@@ -55,7 +56,7 @@ function SpacecraftsPage() {
             <ul>
                 {
                     isLoading ?
-                        <div>⏳ Loading ⌛</div>
+                        <Loader />
                         :
                         spacecrafts.map((craft) => (
                             <li key={craft.id}>

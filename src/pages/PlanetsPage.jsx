@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSpaceTravel } from "../context/SpaceTravelContext";
-import SpaceTravelApi from "../services/SpaceTravelApi"; // to get data from mock API
+import Loader from "../components/Loader";
 
 function PlanetsPage() {
   const {
@@ -17,9 +17,6 @@ function PlanetsPage() {
   const getCraftsForPlanet = (planetId) =>
     spacecrafts.filter((craft) => parseInt(craft.currentLocation) === planetId);
 
-  //To Do
-  //set Assigned Spacecraft to "none assigned" if none assigned
-
   return (
     <div>
       <h2>Planets</h2>
@@ -27,7 +24,7 @@ function PlanetsPage() {
 
         {
           isLoading ?
-            <div>⏳ Loading ⌛</div>
+            <Loader />
             :
             planets.map((planet) => (
               <li key={planet.id}>
