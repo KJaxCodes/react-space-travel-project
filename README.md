@@ -84,7 +84,3 @@ You can access your starter code below. The folder structure ensures adherence t
 - `services`: Contains services to reach external APIs.
 
 This project employs CSS modules for component-specific styling and embraces the BEM methodology for naming conventions. Aspiring developers are encouraged to explore these practices further.
-
-[Space Travel Starter Code.zip](attachment:10f1f536-b14b-41ff-8f94-e60ce62dabfc:Space_Travel_Starter_Code.zip)
-
-Good luck!
