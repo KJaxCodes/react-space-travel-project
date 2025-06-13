@@ -12,15 +12,12 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useSpaceTravel } from "../../context/SpaceTravelContext";
-import Loader from "../../components/Loader";
-
-import SpaceTravelApi from "../../services/SpaceTravelApi"; // to get data from mock API - do I need this after making the loadInitialData action in SpaceTravelContext?
 
 function SpacecraftsPage() {
 
     const {
         spacecrafts,
-        // decommissionSpacecraftById,
+        decommissionSpacecraftById,
         assignSpacecraftToPlanet,
         loadInitialData,
         planets,
@@ -28,11 +25,15 @@ function SpacecraftsPage() {
     } = useSpaceTravel();
 
     //local state
+    // const [isLoading, setIsLoading] = useState(true); moved to global state
+    const [error, setError] = useState(null);
     const [selectedPlanetIds, setSelectedPlanetIds] = useState({});
 
-    // useEffect(() => {
-    //     loadInitialData().finally(() => setIsLoading(false)); //update local loading state
-    // }, []);
+    useEffect(() => {
+        //this is all we need
+        loadInitialData();
+
+    }, []);
 
     const handlePlanetSelect = (craftId, planetId) => {
         setSelectedPlanetIds((prev) => ({ ...prev, [craftId]: planetId, }));
@@ -43,6 +44,7 @@ function SpacecraftsPage() {
         return planet ? planet.name : "Unassigned";
     };
 
+    if (!spacecrafts) return <p>Loading spacecrafts......</p>
 
     return (
         <div>
@@ -51,56 +53,56 @@ function SpacecraftsPage() {
                 <Link to="/spacecrafts/build">🛠️ Build New Spacecraft</Link>
             </p>
             <ul>
-                {spacecrafts.map((craft) => (
-                    <li key={craft.id}>
-                        <Link to={`/spacecrafts/${craft.id}`} title="View details">
-                            🔍
-                        </Link> {" "}
-                        {craft.name}
-                        <p>Capacity: {craft.capacity}</p>
-                        <p>Currently on Planet: {getPlanetNameById(parseInt(craft.currentLocation))}</p>
-                        <p>
-                            <label>Decommission {craft.name}:</label>
-                            <button
-                                // onClick={() => destroySpacecraftById(craft.id)}
+                {
+                    isLoading ?
+                        <div>⏳ Loading ⌛</div>
+                        :
+                        spacecrafts.map((craft) => (
+                            <li key={craft.id}>
+                                <Link to={`/spacecrafts/${craft.id}`} title="View details">
+                                    🔍
+                                </Link> {" "}
+                                {craft.name}
+                                <p>Capacity: {craft.capacity}</p>
+                                <p>Currently on Planet: {getPlanetNameById(parseInt(craft.currentLocation))}</p>
+                                <p>
+                                    <label>Decommission {craft.name}:</label>
+                                    <button
+                                        onClick={() => decommissionSpacecraftById(craft.id)}
+                                        style={{ marginLeft: "1rem" }}
+                                    >
+                                        Decommission
+                                    </button>
+                                </p>
 
-                                onClick={async () => {
-                                    await SpaceTravelApi.destroySpacecraftById({ id: craft.id });
-                                    await loadInitialData();
-                                }}
-                                style={{ marginLeft: "1rem" }}
-                            >
-                                Decommission
-                            </button>
-                        </p>
+                                <p>
+                                    <label> Reassign {craft.name}:</label>{" "}
+                                    <select
+                                        value={selectedPlanetIds[craft.id]}
+                                        onChange={(e) => handlePlanetSelect(craft.id, e.target.value)}
+                                    >
+                                        <option value=""> Select Planet Reassignment</option>
+                                        {planets.map((planet) => (
+                                            <option key={planet.id} value={planet.id}> {planet.name} </option>
+                                        ))}
+                                    </select> {" "}
+                                    <button
+                                        onClick={async () => {
+                                            assignSpacecraftToPlanet({
+                                                spacecraftId: craft.id,
+                                                targetPlanetId: selectedPlanetIds[craft.id],
+                                            });
+                                            await loadInitialData();
+                                        }}
+                                        disabled={!selectedPlanetIds[craft.id]}
+                                    >
+                                        Assign
+                                    </button>
+                                </p>
 
-                        <p>
-                            <label> Reassign {craft.name}:</label>{" "}
-                            <select
-                                value={selectedPlanetIds[craft.id]}
-                                onChange={(e) => handlePlanetSelect(craft.id, e.target.value)}
-                            >
-                                <option value=""> Select Planet Reassignment</option>
-                                {planets.map((planet) => (
-                                    <option key={planet.id} value={planet.id}> {planet.name} </option>
-                                ))}
-                            </select> {" "}
-                            <button
-                                onClick={async () => {
-                                    assignSpacecraftToPlanet({
-                                        spacecraftId: craft.id,
-                                        targetPlanetId: selectedPlanetIds[craft.id],
-                                    });
-                                    await loadInitialData();
-                                }}
-                                disabled={!selectedPlanetIds[craft.id]}
-                            >
-                                Assign
-                            </button>
-                        </p>
-
-                    </li>
-                ))}
+                            </li>
+                        ))
+                }
             </ul>
         </div >
     );

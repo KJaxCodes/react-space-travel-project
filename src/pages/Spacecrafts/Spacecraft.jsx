@@ -1,16 +1,21 @@
 //display details about a specific spacecraft
 
-//TO DO
-//update to display planet name not ID!!!!, bring in global context
-
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import SpaceTravelApi from "../../services/SpaceTravelApi";
+import { useSpaceTravel } from "../../context/SpaceTravelContext";
 
 function Spacecraft() {
+
+    const {
+        planets,
+        spacecrafts,
+        isLoading,
+    } = useSpaceTravel();
+
+    //local state
     const { id } = useParams();
     const [spacecraft, setSpacecraft] = useState(null);
-    const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
 
     useEffect(() => {
@@ -21,23 +26,25 @@ function Spacecraft() {
                 setSpacecraft(response.data);
             } catch (err) {
                 setError(err.message);
-            } finally {
-                setIsLoading(false);
             }
         }
         fetchSpacecraft();
     }, [id]);
 
-    if (isLoading) return <p>Loading spacecraft...⌛</p>
+    const getPlanetNameById = (planetId) => {
+        const planet = planets.find((p) => p.id === planetId);
+        return planet ? planet.name : "Unassigned";
+    };
+
+    if (isLoading || !spacecraft) return <p>Loading spacecraft...⌛</p>
     if (error) return <p style={{ color: "red" }}>Error: {error}</p>
-    if (!spacecraft) return <p>No spacecraft found.</p>
 
     return (
         <div>
             <h2>{spacecraft.name}</h2>
             <p>Capacity: {spacecraft.capacity}</p>
             <p>Description: {spacecraft.description}</p>
-            <p>Current Location (planet ID): {spacecraft.currentLocation}</p>
+            <p>Current Location: {getPlanetNameById(parseInt(spacecraft.currentLocation))}</p>
             {spacecraft.pictureUrl ? (
                 <img src={spacecraft.pictureUrl} alt={spacecraft.name} width="300" />
             ) : (

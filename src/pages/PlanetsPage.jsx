@@ -7,6 +7,7 @@ function PlanetsPage() {
     planets,
     spacecrafts,
     loadInitialData,
+    isLoading,
   } = useSpaceTravel();
 
   useEffect(() => {
@@ -23,19 +24,25 @@ function PlanetsPage() {
     <div>
       <h2>Planets</h2>
       <ul>
-        {planets.map((planet) => (
-          <li key={planet.id}>
-            <h4>{planet.name} </h4>
-            <img src={planet.pictureUrl} alt={planet.name} style={{ width: "100px" }} />
-            <p>Population: {planet.currentPopulation} </p>
-            <p>Assigned Spacecraft:</p>
-            <ul>
-              {getCraftsForPlanet(planet.id).map((craft) => (
-                <li key={craft.id}>{craft.name}</li>
-              ))}
-            </ul>
-          </li>
-        ))}
+
+        {
+          isLoading ?
+            <div>⏳ Loading ⌛</div>
+            :
+            planets.map((planet) => (
+              <li key={planet.id}>
+                <h4>{planet.name} </h4>
+                <img src={planet.pictureUrl} alt={planet.name} style={{ width: "100px" }} />
+                <p>Population: {planet.currentPopulation} </p>
+                <p>Assigned Spacecraft:</p>
+                <ul>
+                  {getCraftsForPlanet(planet.id).map((craft) => (
+                    <li key={craft.id}>{craft.name}</li>
+                  ))}
+                </ul>
+              </li>
+            ))
+        }
       </ul>
     </div>
   );
