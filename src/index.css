@@ -12,7 +12,18 @@ body {
     background: var(--secondary);
 }
 
-* {
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+li,
+a,
+span,
+div {
     color: #fff;
 }
 
@@ -113,4 +124,13 @@ textarea {
     /* Sets input text color */
     background-color: white;
     /* Ensures contrast with text */
+}
+
+.none {
+    font-style: italic;
+    opacity: 0.85;
+}
+
+.assigned {
+    font-weight: bold;
 }

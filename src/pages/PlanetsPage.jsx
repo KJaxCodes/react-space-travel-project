@@ -35,11 +35,15 @@ function PlanetsPage() {
                 <img src={planet.pictureUrl} alt={planet.name} style={{ width: "100px" }} />
                 <p>Population: {planet.currentPopulation} </p>
                 <p>Assigned Spacecraft:</p>
-                <ul>
-                  {getCraftsForPlanet(planet.id).map((craft) => (
-                    <li key={craft.id}>{craft.name}</li>
-                  ))}
-                </ul>
+                {getCraftsForPlanet(planet.id).length === 0 ? (
+                  <p className="none">No spacecraft assigned</p>
+                ) : (
+                  <ul>
+                    {getCraftsForPlanet(planet.id).map((craft) => (
+                      <li className="assigned" key={craft.id}>{craft.name}</li>
+                    ))}
+                  </ul>
+                )}
               </li>
             ))
         }
