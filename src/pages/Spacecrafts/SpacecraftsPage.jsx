@@ -8,7 +8,7 @@
 //set spacecraft to the selected planet
 //have a button called assign
 //assigns it by target planet id and spacecraft id
-
+import React from "react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useSpaceTravel } from "../../context/SpaceTravelContext";

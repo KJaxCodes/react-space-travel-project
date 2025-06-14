@@ -1,3 +1,4 @@
+import React from "react";
 import { useEffect, useState } from "react";
 import { useSpaceTravel } from "../context/SpaceTravelContext";
 import Loader from "../components/Loader";
