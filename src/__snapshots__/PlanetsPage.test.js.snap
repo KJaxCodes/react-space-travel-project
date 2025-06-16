@@ -1,0 +1,216 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`PlanetsPageTests Component renders correctly: planets-page-display 1`] = `
+<DocumentFragment>
+  <div>
+    <h2>
+      Planets
+    </h2>
+    <ul>
+      <li
+        data-testid="planets-page"
+      >
+        <h4>
+          Mercury 
+        </h4>
+        <img
+          alt="Mercury"
+          src="https://upload.wikimedia.org/wikipedia/commons/8/88/Reprocessed_Mariner_10_image_of_Mercury.jpg"
+          style="width: 100px;"
+        />
+        <p>
+          Population: 0 
+        </p>
+        <p>
+          Assigned Spacecraft:
+        </p>
+        <p
+          class="none"
+        >
+          No spacecraft assigned
+        </p>
+      </li>
+      <li
+        data-testid="planets-page"
+      >
+        <h4>
+          Venus 
+        </h4>
+        <img
+          alt="Venus"
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Venus_globe.jpg/800px-Venus_globe.jpg"
+          style="width: 100px;"
+        />
+        <p>
+          Population: 0 
+        </p>
+        <p>
+          Assigned Spacecraft:
+        </p>
+        <p
+          class="none"
+        >
+          No spacecraft assigned
+        </p>
+      </li>
+      <li
+        data-testid="planets-page"
+      >
+        <h4>
+          Earth 
+        </h4>
+        <img
+          alt="Earth"
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/The_Blue_Marble_%28remastered%29.jpg/800px-The_Blue_Marble_%28remastered%29.jpg"
+          style="width: 100px;"
+        />
+        <p>
+          Population: 100000 
+        </p>
+        <p>
+          Assigned Spacecraft:
+        </p>
+        <ul>
+          <li
+            class="assigned"
+          >
+            Prispax
+          </li>
+        </ul>
+      </li>
+      <li
+        data-testid="planets-page"
+      >
+        <h4>
+          Mars 
+        </h4>
+        <img
+          alt="Mars"
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/OSIRIS_Mars_true_color.jpg/800px-OSIRIS_Mars_true_color.jpg"
+          style="width: 100px;"
+        />
+        <p>
+          Population: 0 
+        </p>
+        <p>
+          Assigned Spacecraft:
+        </p>
+        <p
+          class="none"
+        >
+          No spacecraft assigned
+        </p>
+      </li>
+      <li
+        data-testid="planets-page"
+      >
+        <h4>
+          Jupiter 
+        </h4>
+        <img
+          alt="Jupiter"
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Jupiter%2C_image_taken_by_NASA%27s_Hubble_Space_Telescope%2C_June_2019.png/800px-Jupiter%2C_image_taken_by_NASA%27s_Hubble_Space_Telescope%2C_June_2019.png"
+          style="width: 100px;"
+        />
+        <p>
+          Population: 0 
+        </p>
+        <p>
+          Assigned Spacecraft:
+        </p>
+        <p
+          class="none"
+        >
+          No spacecraft assigned
+        </p>
+      </li>
+      <li
+        data-testid="planets-page"
+      >
+        <h4>
+          Saturn 
+        </h4>
+        <img
+          alt="Saturn"
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/8423_20181_1saturn2016.jpg/1920px-8423_20181_1saturn2016.jpg"
+          style="width: 100px;"
+        />
+        <p>
+          Population: 0 
+        </p>
+        <p>
+          Assigned Spacecraft:
+        </p>
+        <p
+          class="none"
+        >
+          No spacecraft assigned
+        </p>
+      </li>
+      <li
+        data-testid="planets-page"
+      >
+        <h4>
+          Uranus 
+        </h4>
+        <img
+          alt="Uranus"
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Uranus_as_seen_by_NASA%27s_Voyager_2_%28remastered%29_-_JPEG_converted.jpg/800px-Uranus_as_seen_by_NASA%27s_Voyager_2_%28remastered%29_-_JPEG_converted.jpg"
+          style="width: 100px;"
+        />
+        <p>
+          Population: 0 
+        </p>
+        <p>
+          Assigned Spacecraft:
+        </p>
+        <p
+          class="none"
+        >
+          No spacecraft assigned
+        </p>
+      </li>
+      <li
+        data-testid="planets-page"
+      >
+        <h4>
+          Neptune 
+        </h4>
+        <img
+          alt="Neptune"
+          src="https://upload.wikimedia.org/wikipedia/commons/0/06/Neptune.jpg"
+          style="width: 100px;"
+        />
+        <p>
+          Population: 0 
+        </p>
+        <p>
+          Assigned Spacecraft:
+        </p>
+        <p
+          class="none"
+        >
+          No spacecraft assigned
+        </p>
+      </li>
+    </ul>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`PlanetsPageTests Component renders correctly: planets-page-loading 1`] = `
+<DocumentFragment>
+  <div>
+    <h2>
+      Planets
+    </h2>
+    <ul>
+      <li>
+        <p>
+          ⏳Loading...⌛
+        </p>
+      </li>
+    </ul>
+  </div>
+</DocumentFragment>
+`;

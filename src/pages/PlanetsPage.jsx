@@ -24,11 +24,13 @@ function PlanetsPage() {
       <ul>
 
         {
-          isLoading ?
-            <Loader />
-            :
+          isLoading ? (
+            <li>
+              <Loader />
+            </li>
+          ) :
             planets.map((planet) => (
-              <li key={planet.id}>
+              <li data-testid="planets-page" key={planet.id}>
                 <h4>{planet.name} </h4>
                 <img src={planet.pictureUrl} alt={planet.name} style={{ width: "100px" }} />
                 <p>Population: {planet.currentPopulation} </p>

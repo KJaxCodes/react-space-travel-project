@@ -1,3 +1,4 @@
+import React from 'react';
 import { createContext, useContext, useState } from 'react';
 import SpaceTravelApi from '../services/SpaceTravelApi';
 
@@ -74,9 +75,7 @@ export const SpaceTravelProvider = ({ children }) => {
         } catch (err) {
             console.error("Failed to load initial data", err.message);
         } finally {
-            console.log("This will always run");
             setIsLoading(false);
-            console.log("And we are done loading");
         }
     }
 

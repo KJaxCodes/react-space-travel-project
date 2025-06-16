@@ -55,11 +55,13 @@ function SpacecraftsPage() {
             </p>
             <ul>
                 {
-                    isLoading ?
-                        <Loader />
-                        :
+                    isLoading ? (
+                        <li>
+                            <Loader />
+                        </li>
+                    ) :
                         spacecrafts.map((craft) => (
-                            <li key={craft.id}>
+                            <li data-testid="spacecrafts-page" key={craft.id}>
                                 <Link to={`/spacecrafts/${craft.id}`} title="View details">
                                     🔍
                                 </Link> {" "}
